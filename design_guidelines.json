@@ -1,0 +1,123 @@
+{
+  "project_title": "Honnugudi Coffee Trading ERP",
+  "archetype": "ORGANIC_EARTHY_SWISS_FUSION",
+  "theme_preference": "LIGHT_PRIMARY_WITH_WARM_ESPRESSO_TONES",
+  "app_type": "dashboard / vertical ERP (hybrid_fullstack)",
+  "emotional_tone": "Heritage coffee domain expertise, tactical dual-ledger precision, warmth of raw parchment & coffee beans combined with zero-ambiguity financial grid",
+  "typography": {
+    "font_family_headings": "Manrope, sans-serif",
+    "font_family_body": "Inter, sans-serif",
+    "font_family_numbers_ledger": "JetBrains Mono, monospace",
+    "heading_styles": {
+      "h1": "text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 font-sans",
+      "h2": "text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-slate-900 font-sans",
+      "h3": "text-lg sm:text-xl font-semibold tracking-normal text-slate-800 font-sans",
+      "h4": "text-base sm:text-lg font-medium text-slate-800 font-sans"
+    },
+    "body_styles": {
+      "default": "text-sm text-slate-700 leading-relaxed font-sans",
+      "small": "text-xs text-slate-500 font-sans",
+      "label": "text-xs font-semibold uppercase tracking-wider text-amber-900/70"
+    },
+    "number_display": {
+      "currency_inr": "font-mono font-semibold tracking-tight text-slate-900",
+      "quantity_kg": "font-mono font-bold tracking-tight text-amber-900",
+      "ledger_balance_positive": "font-mono font-bold text-emerald-700",
+      "ledger_balance_negative": "font-mono font-bold text-rose-700"
+    }
+  },
+  "colors": {
+    "palette": {
+      "espresso_dark": "#2C1810",
+      "espresso_hover": "#1E100B",
+      "roast_brown": "#5C3A21",
+      "coffee_accent": "#8B5A2B",
+      "parchment_bg": "#FAF7F2",
+      "sand_surface": "#F2EBE0",
+      "warm_border": "#E5D9C8",
+      "card_bg": "#FFFFFF",
+      "slate_text_primary": "#0F172A",
+      "slate_text_secondary": "#475569",
+      "status_sold": "#0D9488",
+      "status_hold": "#D97706",
+      "gain_emerald": "#166534",
+      "exposure_rose": "#991B1B",
+      "badge_hold_bg": "#FEF3C7",
+      "badge_hold_fg": "#92400E",
+      "badge_sold_bg": "#CCFBF1",
+      "badge_sold_fg": "#115E59"
+    },
+    "forbidden_colors": [
+      "#7351B7",
+      "#1B93A4",
+      "#000000"
+    ],
+    "surface_rules": {
+      "header_nav": "bg-stone-900 text-stone-100 border-b border-stone-800 backdrop-blur-md shadow-sm z-50",
+      "sidebar": "bg-[#1C120C] text-stone-200 border-r border-[#2C1810] min-h-screen font-sans",
+      "kpi_card": "bg-white border border-[#E5D9C8] shadow-sm rounded-lg p-5 hover:border-[#8B5A2B] transition-colors duration-150",
+      "data_table_header": "bg-[#F5EFE6] text-[#4A3222] font-semibold text-xs uppercase tracking-wider border-b border-[#E5D9C8]",
+      "ledger_row_even": "bg-white hover:bg-[#FAF7F2] transition-colors",
+      "ledger_row_odd": "bg-[#FDFBF7] hover:bg-[#FAF7F2] transition-colors"
+    }
+  },
+  "layout_and_grids": {
+    "density_mode": "MODE_B_HIGH_DENSITY_VERTICAL_ERP",
+    "page_container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6",
+    "dashboard_grid": "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6",
+    "form_grid": "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6 bg-white border border-[#E5D9C8] rounded-lg shadow-sm",
+    "ledger_dual_split": "grid grid-cols-1 lg:grid-cols-2 gap-6"
+  },
+  "component_strategies": {
+    "shadcn_customizations": {
+      "tables": "Use compact paddings (py-2.5 px-3), mono font for weights & INR, keyboard row focus states, search-as-you-type instantly filtering multi-column data",
+      "forms": "Keyboard-first tab indexing, auto-focus next input on Enter, inline toggle buttons for SOLD vs HOLD per line item",
+      "badges": "Sharp contrast pill badges for HOLD (Amber), SOLD (Teal), SETTLED (Emerald), UNPRICED (Rose)",
+      "cards": "Subtle 1px warm sand border, no shadow heavy drop, high readability of numbers",
+      "modal_dialogs": "Dedicated Reversal confirmation dialog requiring explicit reason input with strong destructive visual alert"
+    },
+    "keyboard_driven_navigation": {
+      "shortcuts": [
+        "Alt+N: New Purchase Bill",
+        "Alt+S: New Settlement",
+        "Alt+A: New Advance",
+        "Alt+D: New Dispatch",
+        "/: Focus Search Bar"
+      ],
+      "quick_entry": "Search-as-you-type dropdowns for Party, Product, Godown, and Season"
+    }
+  },
+  "media_and_images": {
+    "image_urls": [
+      {
+        "url": "https://images.unsplash.com/photo-1671225142630-6fd7deff0def?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzB8MHwxfHNlYXJjaHwzfHxjb2ZmZWUlMjBiZWFucyUyMHdhcmVob3VzZSUyMHRyYWRpbmclMjBiYWclMjBwYXJjaG1lbnR8ZW58MHx8fHwxNzg4MTAzMTE1fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Coffee parchment sacks in godown warehouse",
+        "category": "Hero / Dashboard Banner"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1465176728568-7da7e336b1e9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzB8MHwxfHNlYXJjaHwyfHxjb2ZmZWUlMjBiZWFucyUyMHdhcmVob3VzZSUyMHRyYWRpbmclMjBiYWclMjBwYXJjaG1lbnR8ZW58MHx8fHwxNzg4MTAzMTE1fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Stacked coffee lot bags",
+        "category": "Stock & Godown Overview"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1524350876685-274059332603?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzB8MHwxfHNlYXJjaHwxfHxjb2ZmZWUlMjBiZWFucyUyMHdhcmVob3VzZSUyMHRyYWRpbmclMjBiYWclMjBwYXJjaG1lbnR8ZW58MHx8fHwxNzg4MTAzMTE1fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Coffee cherry / parchment beans close up",
+        "category": "Product Quality & Curing"
+      }
+    ]
+  },
+  "testing_and_accessibility": {
+    "data_testid_convention": "All interactive elements (buttons, inputs, select triggers, table rows, tab triggers, modal buttons) MUST include precise data-testid attributes (e.g. data-testid=\"btn-create-purchase-bill\", data-testid=\"input-party-select\", data-testid=\"kpi-physical-stock\", data-testid=\"row-stock-ledger-1\").",
+    "contrast_standards": "Text contrast ratio > 4.5:1 against light warm backgrounds. JetBrains Mono dark text for financial numbers.",
+    "hover_focus_states": "Hover states must explicitly set text color (e.g., hover:bg-[#8B5A2B] hover:text-white). Focus ring in amber/espresso accent."
+  },
+  "instructions_to_main_agent": [
+    "Ensure strict dual-ledger core representation: Stock Ledger (Quantities in KG) and Party Ledger (Amounts in INR).",
+    "Ensure symmetric BUY/SELL HOLD-SOLD business model: Buy side can be SOLD (priced immediately) or HOLD (unpriced stored coffee). Sell side curing dispatches can be SOLD or HOLD.",
+    "Support full audit trail reversal action: No delete buttons; all reversals generate a counter entry with mandatory reason entry.",
+    "Build fast search-as-you-type filtering across all party master tables, stock ledgers, and transaction lists.",
+    "Render clear KPI summary cards on the main dashboard: Physical Stock KG, Unpriced HOLD Buy Exposure, Unpriced Dispatched Sell Exposure, Stock Cover Ratio, Outstanding Buy Advances, Outstanding Sell Advances, Net Payables & Receivables, and Daily Market Rate.",
+    "Use standard React .js or .jsx components consistent with shadcn UI provided in src/components/ui/.",
+    "Integrate sonner for instant keyboard shortcut notifications and success toasts."
+  ]
+}

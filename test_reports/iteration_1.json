@@ -1,0 +1,43 @@
+{
+  "summary": "End-to-end testing of Honnugudi Coffee Trading ERP. Executed 39 backend pytest cases covering auth (login, cookies, invalid creds, /me), masters (parties/products/godowns, market rate), RBAC (admin/operator/finance perms — operator cannot list users or set market rate; finance is 403 on /api/purchases but can create /api/payments), full BUY workflow (multi-item purchase with SOLD+HOLD, buy advance, partial settlement with advance applied), full SELL workflow (dispatch SOLD/HOLD with stock validation, sell advance, sell settlement), payments, reversals (payment reversal succeeds; reversing purchase whose HOLD was settled is blocked; finance cannot reverse), party ledger running balance, and money integrity math. Frontend verified: login, dashboard with all 8 KPI cards, market rate widget (admin-only input) works, navigation across all pages (Masters, Purchases, Dispatches, Advances, Settlements, Payments, Ledgers) renders, purchase bill modal opens with all data-testids present (product/godown SearchSelect, mode-hold toggle, save button), settlements modal launcher present, users tab visible to admin. No page errors. 39/39 backend tests PASS.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "CORS middleware", "issue": "CORS_ORIGINS='*' combined with allow_credentials=True is invalid per browser spec — browsers will reject preflight when credentials are needed. Currently frontend works only because same-domain via ingress. Should set CORS_ORIGINS to an explicit origin list when frontend is served from a different domain."},
+      {"endpoint": "/api/parties (and others)", "issue": "Documents returned still contain internal fields (created_at, active etc). No _id leak (out() renames to id). Non-critical, acceptable."},
+      {"endpoint": "line_amount rounding", "issue": "Uses Python round() (banker's rounding). Problem statement's example says '100.5 kg at ₹250.75/kg = amount_paise 25200375' but correct paise formula yields 2520038 (off by 10x in the spec). Backend math is internally consistent; spec sample value appears typo'd. Verified 100500g * 25075paise/kg /1000 = 2520037.5 -> 2520038, which is what backend returns."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Purchases list Reverse button", "issue": "Reverse link is displayed for purchases that have already-settled HOLD items; clicking will fail with backend 400. UX-wise it should be disabled/hidden or show a tooltip explaining the settlement must be reversed first.", "selector": "row-level Reverse link on PB-*", "priority": "LOW"}
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Dashboard market rate widget", "issues": ["Placeholder '₹/kg' inside dark maroon input has low contrast against very dark background — hard to read; consider lighter placeholder or explicit label"]}
+    ]
+  },
+  "test_report_links": ["/app/backend/tests/backend_test.py", "/app/test_reports/pytest/pytest_results.xml"],
+  "action_items": [
+    "Consider tightening CORS_ORIGINS to explicit domain list (currently '*' with allow_credentials=True which browsers reject when cookies are actually needed cross-origin).",
+    "Hide/disable Reverse link on Purchase and Dispatch rows whose items have settled_qty_g > 0 to avoid confusing error toast.",
+    "Confirm intended paise math: spec example says 100.5kg @ ₹250.75 = 25200375 paise, but formula gives 2520038 paise (₹25,200.38). Backend is self-consistent and UI renders ₹25,200.38 correctly. Update spec docs or clarify."
+  ],
+  "critical_code_review_comments": [
+    "auth.py: cookies use secure=True + samesite='none' — good for cross-site cookie behaviour on HTTPS, but combined with CORS allow_origins='*' will fail in real browsers. Move CORS_ORIGINS to explicit list.",
+    "transactions.py create_reversal: correctly guards on settled_qty_g > 0 for purchase/dispatch; correctly decrements settled_qty_g on settlement reversal. Good.",
+    "reports.py hold_unpriced pipeline: correctly excludes reversed docs and uses items.settled_qty_g. Good.",
+    "core.py stock_balance uses aggregate — correctly signs qty_g (dispatch entries stored as negative). Good.",
+    "No mongo _id leakage — all endpoints use out() helper.",
+    "Pydantic validation on all bodies, integer paise/grams enforced. Good.",
+    "Login lockout: after 5 failed attempts, 15-min lockout — implemented and tested (indirectly via 401 path).",
+    "seed_admin: idempotent, updates hash if admin password changed. Good."
+  ],
+  "updated_files": ["/app/backend/tests/backend_test.py"],
+  "success_rate": {"backend": "100% (39/39)", "frontend": "100% for smoke/nav; full CRUD via UI not exhaustively driven — backend flows validate the same code paths"},
+  "test_credentials": "Admin: prajwalhs266@gmail.com / admin123. Created ephemeral users test_operator_<ts>@example.com and test_finance_<ts>@example.com with password testpass123 (new each run — not persisted to /app/memory/test_credentials.md since timestamps differ per run).",
+  "seed_data_creation": "Tests create TEST_-prefixed grower, curing_works, product and godown master records plus purchase/dispatch/advance/settlement/payment/reversal transactions and 2 test users each run. No teardown — safe to leave for next agent (all TEST_-prefixed).",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend regression test at /app/backend/tests/backend_test.py — MUST be run with -n 0 (serialised) because tests share a `state` session fixture; pytest.ini defaults to -n 2 which will scatter fixture across workers and break inter-class ordering. Command: `cd /app/backend && python -m pytest tests/backend_test.py -v -n 0 --junitxml=/app/test_reports/pytest/pytest_results.xml`. Each run creates new TEST_ parties/products/godowns/users with timestamps, so tests are idempotent. All backend flows verified working."
+}
